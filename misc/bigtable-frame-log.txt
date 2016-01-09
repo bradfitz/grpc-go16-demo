@@ -1,0 +1,88 @@
+
+2016/01/09 15:00:24 Apply...
+
+2016/01/09 15:00:24 http2: Framer 0xc8201cb760: wrote SETTINGS len=0
+2016/01/09 15:00:24 http2: Framer 0xc8201cb760: wrote WINDOW_UPDATE len=4 (conn) incr=983025
+2016/01/09 15:00:24 http2: Framer 0xc8201cb760: read SETTINGS len=18, settings: MAX_CONCURRENT_STREAMS=100, INITIAL_WINDOW_SIZE=1048576, MAX_FRAME_SIZE=16384
+2016/01/09 15:00:24 http2: Framer 0xc8201cb760: read WINDOW_UPDATE len=4 (conn) incr=983041
+2016/01/09 15:00:24 http2: Framer 0xc8201cb760: wrote SETTINGS flags=ACK len=0
+2016/01/09 15:00:24 http2: Framer 0xc8201cb760: read SETTINGS flags=ACK len=0
+2016/01/09 15:00:24 http2: encoding header field ":method" = "POST"
+2016/01/09 15:00:24 http2: encoding header field ":scheme" = "https"
+2016/01/09 15:00:24 http2: encoding header field ":path" = "/google.bigtable.v1.BigtableService/MutateRow"
+2016/01/09 15:00:24 http2: encoding header field ":authority" = "bigtable.googleapis.com"
+2016/01/09 15:00:24 http2: encoding header field "content-type" = "application/grpc"
+2016/01/09 15:00:24 http2: encoding header field "user-agent" = "cbt-go/20150727 grpc-go/0.11"
+2016/01/09 15:00:24 http2: encoding header field "te" = "trailers"
+2016/01/09 15:00:24 http2: encoding header field "authorization" = "Bearer XXX"
+2016/01/09 15:00:24 http2: Framer 0xc8201cb760: wrote HEADERS flags=END_HEADERS stream=1 len=165
+2016/01/09 15:00:24 http2: Framer 0xc8201cb760: wrote DATA flags=END_STREAM stream=1 len=136 data="\x00\x00\x00\x00\x83\nUprojects/grpc-go16-dev/zones/us-central1-c/clusters/dollar-95-per-hour/tables/mytable\x12\ft:1452380424\x1a\x1c\n\x1a\n\x03fam\x12\x03col\x18\x88\xee\x9f\xda\xea\x9d\xca\x02\"\x05hello"
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read HEADERS flags=END_HEADERS stream=1 len=126
+2016/01/09 15:00:25 http2: decoded header field ":status" = "200"
+2016/01/09 15:00:25 http2: decoded header field "content-disposition" = "attachment"
+2016/01/09 15:00:25 http2: decoded header field "content-type" = "application/grpc"
+2016/01/09 15:00:25 http2: decoded header field "date" = "Sat, 09 Jan 2016 23:00:25 GMT"
+2016/01/09 15:00:25 http2: decoded header field "server" = "GFE/2.0"
+2016/01/09 15:00:25 http2: decoded header field "alternate-protocol" = "443:quic,p=1"
+2016/01/09 15:00:25 http2: decoded header field "alt-svc" = "quic=\":443\"; ma=604800; v=\"30,29,28,27,26,25\""
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read DATA stream=1 len=5 data="\x00\x00\x00\x00\x00"
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read HEADERS flags=END_STREAM|END_HEADERS stream=1 len=13
+2016/01/09 15:00:25 http2: decoded header field "grpc-status" = "0"
+2016/01/09 15:00:25 http2: decoded header field "content-disposition" = "attachment"
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read PING len=8 ping="\x00\x00\x00\x00\x00\x00\x00\x00"
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: wrote PING flags=ACK len=8 ping="\x00\x00\x00\x00\x00\x00\x00\x00"
+
+
+
+2016/01/09 15:00:25 ReadRows...
+
+2016/01/09 15:00:25 http2: encoding header field ":method" = "POST"
+2016/01/09 15:00:25 http2: encoding header field ":scheme" = "https"
+2016/01/09 15:00:25 http2: encoding header field ":path" = "/google.bigtable.v1.BigtableService/ReadRows"
+2016/01/09 15:00:25 http2: encoding header field ":authority" = "bigtable.googleapis.com"
+2016/01/09 15:00:25 http2: encoding header field "content-type" = "application/grpc"
+2016/01/09 15:00:25 http2: encoding header field "user-agent" = "cbt-go/20150727 grpc-go/0.11"
+2016/01/09 15:00:25 http2: encoding header field "te" = "trailers"
+2016/01/09 15:00:25 http2: encoding header field "authorization" = "Bearer XXX"
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: wrote HEADERS flags=END_HEADERS stream=3 len=41
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: wrote DATA stream=3 len=94 data="\x00\x00\x00\x00Y\nUprojects/grpc-go16-dev/zones/us-central1-c/clusters/dollar-95-per-hour/tables/mytable\x1a\x00"
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: wrote DATA flags=END_STREAM stream=3 len=0 data=""
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read HEADERS flags=END_HEADERS stream=3 len=7
+2016/01/09 15:00:25 http2: decoded header field ":status" = "200"
+2016/01/09 15:00:25 http2: decoded header field "content-disposition" = "attachment"
+2016/01/09 15:00:25 http2: decoded header field "content-type" = "application/grpc"
+2016/01/09 15:00:25 http2: decoded header field "date" = "Sat, 09 Jan 2016 23:00:25 GMT"
+2016/01/09 15:00:25 http2: decoded header field "server" = "GFE/2.0"
+2016/01/09 15:00:25 http2: decoded header field "alternate-protocol" = "443:quic,p=1"
+2016/01/09 15:00:25 http2: decoded header field "alt-svc" = "quic=\":443\"; ma=604800; v=\"30,29,28,27,26,25\""
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read DATA stream=3 len=57 data="\x00\x00\x00\x004\n\ft:1452379189\x12 \n\x1e\n\x03fam\x12\x17\n\x03col\x12\x10\b\xb8\xf6\xa8\x8d\xe6\x9d\xca\x02\x12\x05hello\x12\x02\x18\x01"
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read DATA stream=3 len=57 data="\x00\x00\x00\x004\n\ft:1452379227\x12 \n\x1e\n\x03fam\x12\x17\n\x03col\x12\x10\b\xd8\xefҟ\xe6\x9d\xca\x02\x12\x05hello\x12\x02\x18\x01"
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read DATA stream=3 len=171 data="\x00\x00\x00\x004\n\ft:1452379232\x12 \n\x1e\n\x03fam\x12\x17\n\x03col\x12\x10\b\xb8\xbeҡ\xe6\x9d\xca\x02\x12\x05hello\x12\x02\x18\x01\x00\x00\x00\x004\n\ft:1452379234\x12 \n\x1e\n\x03fam\x12\x17\n\x03col\x12\x10\b\xb0\xa3ˢ\xe6\x9d\xca\x02\x12\x05hello\x12\x02\x18\x01\x00\x00\x00\x004\n\ft:1452379242\x12 \n\x1e\n\x03fam\x12\x17\n\x03col\x12\x10\b\x88\x8fئ\xe6\x9d\xca\x02\x12\x05hello\x12\x02\x18\x01"
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read DATA stream=3 len=57 data="\x00\x00\x00\x004\n\ft:1452379297\x12 \n\x1e\n\x03fam\x12\x17\n\x03col\x12\x10\b\x80\x8a\xd2\xc0\xe6\x9d\xca\x02\x12\x05hello\x12\x02\x18\x01"
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read DATA stream=3 len=114 data="\x00\x00\x00\x004\n\ft:1452379355\x12 \n\x1e\n\x03fam\x12\x17\n\x03col\x12\x10\bأ\xdb\xdc\xe6\x9d\xca\x02\x12\x05hello\x12\x02\x18\x01\x00\x00\x00\x004\n\ft:1452379422\x12 \n\x1e\n\x03fam\x12\x17\n\x03col\x12\x10\bؿ\xc5\xfc\xe6\x9d\xca\x02\x12\x05hello\x12\x02\x18\x01"
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read DATA stream=3 len=57 data="\x00\x00\x00\x004\n\ft:1452379479\x12 \n\x1e\n\x03fam\x12\x17\n\x03col\x12\x10\b\x98\xbb\xb4\x97\xe7\x9d\xca\x02\x12\x05hello\x12\x02\x18\x01"
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read DATA stream=3 len=57 data="\x00\x00\x00\x004\n\ft:1452379643\x12 \n\x1e\n\x03fam\x12\x17\n\x03col\x12\x10\b\xc8܇\xe6\xe7\x9d\xca\x02\x12\x05hello\x12\x02\x18\x01"
+2016/01/09 15:00:25 Got row: t:1452379189 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452379189", Column:"fam:col", Timestamp:1452379189427000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 Got row: t:1452379227 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452379227", Column:"fam:col", Timestamp:1452379227863000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 Got row: t:1452379232 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452379232", Column:"fam:col", Timestamp:1452379232051000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 Got row: t:1452379234 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452379234", Column:"fam:col", Timestamp:1452379234030000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 Got row: t:1452379242 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452379242", Column:"fam:col", Timestamp:1452379242629000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 Got row: t:1452379297 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452379297", Column:"fam:col", Timestamp:1452379297056000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 Got row: t:1452379355 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452379355", Column:"fam:col", Timestamp:1452379355927000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 Got row: t:1452379422 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452379422", Column:"fam:col", Timestamp:1452379422679000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 Got row: t:1452379479 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452379479", Column:"fam:col", Timestamp:1452379479023000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 Got row: t:1452379643 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452379643", Column:"fam:col", Timestamp:1452379643965000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read DATA stream=3 len=57 data="\x00\x00\x00\x004\n\ft:1452379674\x12 \n\x1e\n\x03fam\x12\x17\n\x03col\x12\x10\b\xf0\xdb\xc8\xf4\xe7\x9d\xca\x02\x12\x05hello\x12\x02\x18\x01"
+2016/01/09 15:00:25 Got row: t:1452379674 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452379674", Column:"fam:col", Timestamp:1452379674390000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read DATA stream=3 len=285 data="\x00\x00\x00\x004\n\ft:1452379749\x12 \n\x1e\n\x03fam\x12\x17\n\x03col\x12\x10\b苽\x98\xe8\x9d\xca\x02\x12\x05hello\x12\x02\x18\x01\x00\x00\x00\x004\n\ft:1452380290\x12 \n\x1e\n\x03fam\x12\x17\n\x03col\x12\x10\b\x80\x95ɚ\xea\x9d\xca\x02\x12\x05hello\x12\x02\x18\x01\x00\x00\x00\x004\n\ft:1452380298\x12 \n\x1e\n\x03fam\x12\x17\n\x03col\x12\x10\b\xa0\xfc\xa5\x9e\xea\x9d\xca\x02\x12\x05hello\x12\x02\x18\x01\x00\x00\x00\x004\n\ft:1452380357\x12 \n\x1e\n\x03fam\x12\x17\n\x03col\x12\x10\b\x88Ќ\xba\xea\x9d\xca\x02\x12\x05hello\x12\x02\x18\x01\x00\x00\x00\x004\n\ft:1452380424\x12 \n\x1e\n\x03fam" (29 bytes omitted)
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read HEADERS flags=END_STREAM|END_HEADERS stream=3 len=2
+2016/01/09 15:00:25 http2: decoded header field "grpc-status" = "0"
+2016/01/09 15:00:25 http2: decoded header field "content-disposition" = "attachment"
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: read PING len=8 ping="\x00\x00\x00\x00\x00\x00\x00\x02"
+2016/01/09 15:00:25 http2: Framer 0xc8201cb760: wrote PING flags=ACK len=8 ping="\x00\x00\x00\x00\x00\x00\x00\x02"
+2016/01/09 15:00:25 Got row: t:1452379749 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452379749", Column:"fam:col", Timestamp:1452379749697000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 Got row: t:1452380290 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452380290", Column:"fam:col", Timestamp:1452380290960000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 Got row: t:1452380298 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452380298", Column:"fam:col", Timestamp:1452380298772000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 Got row: t:1452380357 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452380357", Column:"fam:col", Timestamp:1452380357077000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 Got row: t:1452380424 = bigtable.Row{"fam":[]bigtable.ReadItem{bigtable.ReadItem{Row:"t:1452380424", Column:"fam:col", Timestamp:1452380424501000, Value:[]uint8{0x68, 0x65, 0x6c, 0x6c, 0x6f}}}}
+2016/01/09 15:00:25 done.
