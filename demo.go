@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/binary"
+	"errors"
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -19,39 +22,43 @@ import (
 	btspb "github.com/bradfitz/grpc-go16-demo/proto/service_proto"
 )
 
+var (
+	proj    = flag.String("project", "grpc-go16-dev", "GCE project")
+	zone    = flag.String("zone", "us-central1-c", "GCE zone")
+	cluster = flag.String("cluster", "dollar-95-per-hour", "Cloud Bigtable Cluster name")
+	table   = flag.String("table", "mytable", "table name")
+)
+
 func main() {
+	flag.Parse()
 	const u = "https://bigtable.googleapis.com/google.bigtable.v1.BigtableService/MutateRow"
 
-	family := "fam"
-	column := "col"
-	ts := time.Now().Unix() / 1e3
-	value := []byte("Blake says hi.")
-
-	var ops []*btdpb.Mutation
-	ops = append(ops, &btdpb.Mutation{Mutation: &btdpb.Mutation_SetCell_{&btdpb.Mutation_SetCell{
-		FamilyName:      family,
-		ColumnQualifier: []byte(column),
-		TimestampMicros: int64(ts),
-		Value:           value,
-	}}})
-
 	mr := &btspb.MutateRowRequest{
-		TableName: "projects/grpc-go16-dev/zones/us-central1-c/clusters/dollar-95-per-hour/tables/mytable",
+		TableName: "projects/" + *proj + "/zones/" + *zone + "/clusters/" + *cluster + "/tables/" + *table,
 		RowKey:    []byte(fmt.Sprintf("t-%d", time.Now().Unix())),
-		Mutations: ops,
+		Mutations: []*btdpb.Mutation{
+			{Mutation: &btdpb.Mutation_SetCell_{&btdpb.Mutation_SetCell{
+				FamilyName:      "fam",
+				ColumnQualifier: []byte("col"),
+				TimestampMicros: -1,
+				Value:           []byte("blake says hi"),
+			}}},
+		},
 	}
 
-	pay, err := proto.Marshal(mr)
+	payload, err := proto.Marshal(mr)
 	if err != nil {
 		log.Fatal("Marshal:", err)
 	}
 
-	log.Printf("payload: %q", pay)
+	header := make([]byte, 5)
+	header[0] = 0 // uncompressed
+	binary.BigEndian.PutUint32(header[1:5], uint32(len(payload)))
 
-	body := make([]byte, 5)
-	binary.BigEndian.PutUint32(body[1:5], uint32(len(pay)))
-	body = append(body, pay...)
-	req, err := http.NewRequest("POST", u, bytes.NewReader(body))
+	req, err := http.NewRequest("POST", u, io.MultiReader(
+		bytes.NewReader(header),
+		bytes.NewReader(payload),
+	))
 	if err != nil {
 		log.Fatal("NewRequest:", err)
 	}
@@ -67,21 +74,67 @@ func main() {
 	defer res.Body.Close()
 	log.Printf("Res: %#v", res)
 	if res.StatusCode != 200 {
-		log.Fatalf("non-200 status code: %q", res.Status)
+		log.Fatalf("non-200 status code: %v", res.Status)
 	}
-	if _, err := io.Copy(debugWriter{os.Stdout}, res.Body); err != nil {
-		log.Fatal("Copy:", err)
+
+	if err := foreachDelimitedMessage(res.Body, func(v []byte) error {
+		log.Printf("delimited message of %d bytes: %q", len(v), v)
+		return nil
+	}); err != nil {
+		log.Fatal(err)
 	}
-	log.Printf("%#v", res.Trailer)
+
+	// In the trailers by default, unless the server replies with
+	// the grpc-status in the headers with no body.  (No observed,
+	// but described in the grpc wire docs)
+	statusHeader := res.Trailer
+	if _, ok := statusHeader["Grpc-Status"]; !ok {
+		statusHeader = res.Header
+	}
+
+	statusCode, statusMessage := statusHeader.Get("Grpc-Status"), statusHeader.Get("Grpc-Message")
+	if statusCode != "0" {
+		log.Fatalf("GPRC status %v: %s", statusCode, statusMessage)
+	}
 }
 
-type debugWriter struct {
-	w io.Writer
-}
-
-func (w debugWriter) Write(b []byte) (int, error) {
-	_, err := fmt.Fprintf(w.w, "BODY: %q\n", b)
-	return len(b), err
+func foreachDelimitedMessage(rc io.ReadCloser, fn func([]byte) error) error {
+	defer rc.Close()
+	br := bufio.NewReader(rc) // TODO: recycle
+	for {
+		t, err := br.ReadByte()
+		if err == io.EOF {
+			return nil
+		}
+		if err != nil {
+			return err
+		}
+		if t != 0 {
+			return errors.New("unsupported message compression type")
+		}
+		size, err := br.Peek(4)
+		if err != nil {
+			if err == io.EOF {
+				err = io.ErrUnexpectedEOF
+			}
+			return err
+		}
+		br.Discard(4) // always succeeds
+		usize := binary.BigEndian.Uint32(size)
+		if int64(int(usize)) != int64(usize) {
+			return errors.New("delimited message too large")
+		}
+		v, err := br.Peek(int(usize))
+		if err != nil {
+			if err == io.EOF {
+				err = io.ErrUnexpectedEOF
+			}
+			return err
+		}
+		if err := fn(v); err != nil {
+			return err
+		}
+	}
 }
 
 func getToken() string {
